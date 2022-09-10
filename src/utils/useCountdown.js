@@ -5,7 +5,6 @@ const useCountdown = () => {
 
   const [timer, setTimer] = useState('05:00');
   const [isStop, setIsStop] = useState(false)
-  const [adjustTime, setAdjustTime] = useState('00:00')
 
   const getTimeRemaining = (e) => {
     const total = Date.parse(e) - Date.parse(new Date());
@@ -43,8 +42,17 @@ const useCountdown = () => {
   useEffect(() => {
     clearTimer(getDeadTime());
   }, []);
+
+  useEffect(() => {
+    if(timer === '00:00'){
+      clearInterval(timeRef.current)
+      setIsStop(true)
+    }
+  }, [timer])
   const onClickReset = () => {
+    setTimer("5:00")
     clearTimer(getDeadTime());
+    setIsStop(false)
   }
 
   const stopTimer = () => {
@@ -62,10 +70,11 @@ const useCountdown = () => {
     clearTimer(deadline)
   }
   const chooseTime = (min, sec) => {
-    let total = min * 60 + sec
-    let deadline = new Date();
-    deadline.setSeconds(deadline.getSeconds() + total);
-    clearTimer(deadline)
+    setTimer(
+      (min > 9 ? min : '0' + min) + ':'
+      + (sec > 9 ? sec : '0' + sec)
+      )
+    
   }
   return {
     resumtTimer,

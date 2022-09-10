@@ -1,7 +1,7 @@
-export default function ShowCounter({days, hours, minutes, seconds }) {
+export default function ShowCounter({minutes, seconds }) {
     return (
         <>
-        {days} : {hours} : {minutes} : {seconds}
+         {minutes} : {seconds}
         </>
     )
 }
