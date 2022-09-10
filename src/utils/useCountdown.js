@@ -5,6 +5,7 @@ const useCountdown = () => {
 
   const [timer, setTimer] = useState('05:00');
   const [isStop, setIsStop] = useState(false)
+  const [adjustTime, setAdjustTime] = useState('00:00')
 
   const getTimeRemaining = (e) => {
     const total = Date.parse(e) - Date.parse(new Date());

@@ -1,0 +1,26 @@
+.time_length_wrap {
+    display: flex;
+    color: white;
+    justify-content: center;
+    justify-items: center;
+}
+.time_length {
+    font-size: 42px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+}
+.direction_btn {
+    background: #333;
+    border: none;
+    color: white;
+    height: 30px;
+}
+.time_length_btn {
+    background: #333 !important;
+    border: none !important;
+}
+.time_adjust_icon {
+    height: 25px !important;
+}
