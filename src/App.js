@@ -29,7 +29,6 @@ function App() {
 
   return (
     <div className={classes.App}>
-      <h1 className={classes.header}>Count Down</h1>
       <div className={classes.timerwrap}>
         <ShowCounter minutes={timer.split(':')[0]} seconds={timer.split(':')[1]} progress={progressRef.current} />
 
