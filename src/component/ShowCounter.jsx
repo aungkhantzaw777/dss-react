@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { CSSTransition, Transition } from "react-transition-group"
+import { CSSTransition } from "react-transition-group"
 import classes from './ShowCounter.module.css'
 
 
@@ -43,11 +43,6 @@ export default function ShowCounter({ minutes, seconds, progress }) {
             setShowSSecondDigit(false)
         }, 500)
     }, [sSecondDigit])
-
-    const animatingTiming = {
-        enter: 400,
-        exit: 1000,
-    }
 
 
     return (
