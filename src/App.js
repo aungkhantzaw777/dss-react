@@ -1,9 +1,9 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { useCountdown } from './utils/useCountdown';
 import { Button, Modal } from 'react-bootstrap'
 import { PlayIcon, PauseIcon, ArrowPathRoundedSquareIcon, WrenchScrewdriverIcon } from '@heroicons/react/24/solid'
 import AdjustTime from './component/AdjustTime';
-// import { CSSTransitionGroup } from 'react-transition-group'  
+import ShowCounter from './component/ShowCounter';
 import classes from './App.module.css'
 
 function App() {
@@ -14,11 +14,6 @@ function App() {
   const handleTimeLength = useCallback((val => {
     setTimeLength(val)
   }), [timeLength])
-
-  useEffect(() => {
-
-  }, [timer])
-
 
   const closeModal = () => {
     setIsAddNew(false)
@@ -33,17 +28,12 @@ function App() {
 
   }
 
-
   return (
     <div className={classes.App}>
-      <h1 className='text-center fw-900'>Count Down Timer</h1>
+      <h1 className={classes.header}>Count Down Timer</h1>
       <div className={classes.timerwrap}>
-        <h2 className={classes.timer_text}>
-          
-          {timer}
-         
-          {/* {timer} */}
-        </h2>
+        <ShowCounter minutes={timer.split(':')[0]} seconds={timer.split(':')[1]} />
+
         <div className={classes.actionWrap}>
           {
             isStop &&
@@ -60,7 +50,7 @@ function App() {
               )
               :
               (
-                <button className={classes.btn_rounded} onClick={stopTimer}><PauseIcon /></button>
+                <button className={`${classes.btn_rounded} ${classes.pause}`} onClick={stopTimer}><PauseIcon /></button>
               )
           }
           {
@@ -84,7 +74,7 @@ function App() {
         <Modal.Footer>
 
           <Button onClick={handleAdjustTime} variant="primary">
-            Set Up
+            Select
           </Button>
         </Modal.Footer>
       </Modal>
