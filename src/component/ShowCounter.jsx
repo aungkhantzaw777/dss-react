@@ -1,7 +1,5 @@
-// import { useRef } from "react";
 import { useEffect, useState } from "react"
-// import ProgressBar from 'react-bootstrap/ProgressBar';
-import { Transition } from "react-transition-group"
+import { CSSTransition, Transition } from "react-transition-group"
 import classes from './ShowCounter.module.css'
 
 
@@ -17,108 +15,92 @@ export default function ShowCounter({ minutes, seconds, progress }) {
     const [showSFirstDigit, setShowSFirstDigit] = useState(true)
     const [showSSecondDigit, setShowSSecondDigit] = useState(true)
 
-    
-
     // Minute Class Transition
     useEffect(() => {
-        setShowMFirstDigit(false)
+        setShowMFirstDigit(true)
         setTimeout(() => {
-            setShowMFirstDigit(true)
-        }, 950);
+            setShowMFirstDigit(false)
+        }, 500);
     }, [mFirstDigit])
     useEffect(() => {
-        setShowMSecondDigit(false)
+        setShowMSecondDigit(true)
         setTimeout(() => {
-            setShowMSecondDigit(true)
-        }, 950);
+            setShowMSecondDigit(false)
+        }, 500);
     }, [mSecondDigit])
 
     // Second Class Transition
     useEffect(() => {
-        setShowSFirstDigit(false)
+
+        setShowSFirstDigit(true)
         setTimeout(() => {
-            setShowSFirstDigit(true)
-        }, 950);
+            setShowSFirstDigit(false)
+        }, 500);
     }, [sFirstDigit])
     useEffect(() => {
-
-        setShowSSecondDigit(false)
+        setShowSSecondDigit(true)
         setTimeout(() => {
-            setShowSSecondDigit(true)
-        }, 950)
+            setShowSSecondDigit(false)
+        }, 500)
     }, [sSecondDigit])
 
     const animatingTiming = {
-        enter: 500,
-        exit: 500,
+        enter: 400,
+        exit: 1000,
     }
 
 
     return (
         <>
             <div className="d-flex justify-content-center">
-                
-                <Transition in={showMFirstDigit} timeout={animatingTiming}>
-                    {
-                        state => (
-                            <div
-                                className={state === 'exited' ? classes.fadingIn : classes.fading}
-                            >
-                                <h1 >
-                                    {mFirstDigit}
-                                </h1>
-                            </div>
-                        )
-                    }
-                </Transition>
 
-                <Transition in={showMSecondDigit} timeout={animatingTiming}>
-                    {
-                        state => (
-                            <div
-                                className={state === 'exited' ? classes.fadingIn : classes.fading}
-                            >
-                                <h1 >
-                                    {mSecondDigit}
-                                </h1>
-                            </div>
-                        )
-                    }
+                <CSSTransition
+                    in={showMFirstDigit}
+                    timeout={500}
+                    classNames="fadingCount">
+                    <div>
+                        <h1 >
+                            {mFirstDigit}
+                        </h1>
+                    </div>
+                </CSSTransition>
 
-                </Transition>
+                <CSSTransition
+                    in={showMSecondDigit}
+                    timeout={500}
+                    classNames="fadingCount">
+                    <div>
+                        <h1 >
+                            {mSecondDigit}
+                        </h1>
+                    </div>
+                </CSSTransition>
                 <div>
                     <h1>
                         :
                     </h1>
                 </div>
-                <Transition in={showSFirstDigit} timeout={animatingTiming}>
-                    {
-                        state => (
-                            <div
-                                className={state === 'exited' ? classes.fadingIn : classes.fading}
-                            >
-                                <h1>
-                                    {sFirstDigit}
-                                </h1>
-                            </div>
-                        )
-                    }
-
-                </Transition>
-                <Transition in={showSSecondDigit} timeout={animatingTiming} >
-                    {
-                        state => (
-                            <div
-                                className={state === 'exited' ? classes.fadingIn : classes.fading}
-                            >
-                                <h1>
-                                    {sSecondDigit}
-                                </h1>
-                            </div>
-                        )
-                    }
-
-                </Transition>
+                <CSSTransition
+                    in={showSFirstDigit}
+                    timeout={500}
+                    classNames="fadingCount"
+                >
+                    <div>
+                        <h1>
+                            {sFirstDigit}
+                        </h1>
+                    </div>
+                </CSSTransition>
+                <CSSTransition
+                    in={showSSecondDigit}
+                    timeout={500}
+                    classNames="fadingCount" >
+                    <div>
+                        <h1>
+                            {sSecondDigit}
+                        </h1>
+                    </div>
+                </CSSTransition>
 
             </div>
             <div

@@ -8,20 +8,20 @@ body {
   background: #333 !important;
 }
 
-.example-enter {
-  opacity: 0.01;
+.fadingCount-enter {
+  opacity: 0;
+  transform: scale(0.9);
 }
-
-.example-enter.example-enter-active {
+.fadingCount-enter-active {
   opacity: 1;
-  transition: opacity 500ms ease-in;
+  transform: translateX(0);
+  transition: opacity 500ms, transform 500ms;
 }
-
-.example-leave {
+.fadingCount-exit {
   opacity: 1;
 }
-
-.example-leave.example-leave-active {
-  opacity: 0.01;
-  transition: opacity 300ms ease-in;
+.fadingCount-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 500ms, transform 500ms;
 }
