@@ -23,13 +23,13 @@ export default function ShowCounter({ minutes, seconds }) {
         setShowMFirstDigit(false)
         setTimeout(() => {
             setShowMFirstDigit(true)
-        }, 1000);
+        }, 950);
     }, [mFirstDigit])
     useEffect(() => {
         setShowMSecondDigit(false)
         setTimeout(() => {
             setShowMSecondDigit(true)
-        }, 1000);
+        }, 950);
     }, [mSecondDigit])
 
     // Second Class Transition
@@ -37,21 +37,26 @@ export default function ShowCounter({ minutes, seconds }) {
         setShowSFirstDigit(false)
         setTimeout(() => {
             setShowSFirstDigit(true)
-        }, 1000);
+        }, 950);
     }, [sFirstDigit])
     useEffect(() => {
 
         setShowSSecondDigit(false)
         setTimeout(() => {
             setShowSSecondDigit(true)
-        }, 1000)
+        }, 950)
     }, [sSecondDigit])
+
+    const animatingTiming = {
+        enter: 500,
+        exit:500,
+    }
 
 
     return (
         <>
             <div className="d-flex justify-content-center">
-                <Transition in={showMFirstDigit} timeout={400}>
+                <Transition in={showMFirstDigit} timeout={animatingTiming}>
                     {
                         state => (
                             <div
@@ -65,7 +70,7 @@ export default function ShowCounter({ minutes, seconds }) {
                     }
                 </Transition>
                 
-                <Transition in={showMSecondDigit} timeout={400}>
+                <Transition in={showMSecondDigit} timeout={animatingTiming}>
                     {
                         state => (
                             <div
@@ -84,7 +89,7 @@ export default function ShowCounter({ minutes, seconds }) {
                         :
                     </h1>
                 </div>
-                <Transition in={showSFirstDigit} timeout={400}>
+                <Transition in={showSFirstDigit} timeout={animatingTiming}>
                     {
                         state => (
                             <div
@@ -98,7 +103,7 @@ export default function ShowCounter({ minutes, seconds }) {
                     }
 
                 </Transition>
-                <Transition in={showSSecondDigit} timeout={400} >
+                <Transition in={showSSecondDigit} timeout={animatingTiming} >
                     {
                         state => (
                             <div

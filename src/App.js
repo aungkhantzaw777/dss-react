@@ -8,7 +8,7 @@ import classes from './App.module.css'
 
 function App() {
   const [isAddNew, setIsAddNew] = useState(false)
-  const { isStop, onClickReset, timer, resumtTimer, stopTimer, chooseTime } = useCountdown()
+  const { isStop, onClickReset, timer, resumeTimer, stopTimer, chooseTime } = useCountdown()
   const [timeLength, setTimeLength] = useState('00:00')
 
   const handleTimeLength = useCallback((val => {
@@ -44,7 +44,7 @@ function App() {
           {
             isStop ?
               (
-                <button className={classes.btn_rounded} onClick={resumtTimer}>
+                <button className={classes.btn_rounded} onClick={resumeTimer}>
                   <PlayIcon />
                 </button>
               )

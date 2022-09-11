@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 
 const useCountdown = () => {
-  const timeRef = useRef(null);
+  const runningTimeRef = useRef(null);
 
   const [timer, setTimer] = useState('05:00');
   const [isStop, setIsStop] = useState(false)
@@ -15,6 +15,7 @@ const useCountdown = () => {
       total, minutes, seconds
     };
   }
+
   const startTimer = (e) => {
     let { total, minutes, seconds }
       = getTimeRemaining(e);
@@ -25,14 +26,16 @@ const useCountdown = () => {
       )
     }
   }
+
   const clearTimer = useCallback((e) => {
 
-    if (timeRef.current) clearInterval(timeRef.current);
+    if (runningTimeRef.current) clearInterval(runningTimeRef.current);
     const interval = setInterval(() => {
       startTimer(e);
     }, 1000)
-    timeRef.current = interval;
-  }, [timeRef])
+    runningTimeRef.current = interval;
+  }, [runningTimeRef])
+
   const getDeadTime = () => {
     let deadline = new Date();
     deadline.setSeconds(deadline.getSeconds() + 300);
@@ -45,7 +48,7 @@ const useCountdown = () => {
 
   useEffect(() => {
     if(timer === '00:00'){
-      clearInterval(timeRef.current)
+      clearInterval(runningTimeRef.current)
       setIsStop(true)
     }
   }, [timer])
@@ -57,10 +60,10 @@ const useCountdown = () => {
 
   const stopTimer = () => {
     setIsStop(true)
-    clearInterval(timeRef.current)
+    clearInterval(runningTimeRef.current)
   }
 
-  const resumtTimer = () => {
+  const resumeTimer = () => {
     setIsStop(false)
     let [minutes, seconds] = timer.split(":")
 
@@ -69,6 +72,7 @@ const useCountdown = () => {
     deadline.setSeconds(deadline.getSeconds() + total);
     clearTimer(deadline)
   }
+
   const chooseTime = (min, sec) => {
     setTimer(
       (min > 9 ? min : '0' + min) + ':'
@@ -76,8 +80,9 @@ const useCountdown = () => {
       )
     
   }
+
   return {
-    resumtTimer,
+    resumeTimer,
     onClickReset,
     stopTimer,
     isStop,

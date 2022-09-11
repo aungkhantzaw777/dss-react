@@ -20,7 +20,7 @@
     width: 400px;
     padding: 10px 5px;
     border: 1px solid #AAAAAA;
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: #161B1F;
 }
 
@@ -38,6 +38,7 @@
     line-height: 20px;
     border-radius: 50%;
 }
+
 .pause {
     background-color: #CC0000 !important;
 }
@@ -59,11 +60,20 @@
     background: #212121 !important;
 }
 
-.fade-in {
-    transition: opacity 1s ease;
+@media only screen and (max-width: 992px) {
+    .timerwrap {
+        width: 736px;
+    }
 }
 
-.fade-out {
-    opacity: 0;
-    transition: opacity 1s ease;
+@media only screen and (max-width: 768px) {
+    .timerwrap {
+        width: 560px;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .timerwrap {
+        width: 92%;
+    }
 }
