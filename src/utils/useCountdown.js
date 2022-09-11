@@ -23,7 +23,7 @@ const useCountdown = () => {
     let start = parseInt(initialTime.current.split(':')[0]) * 60 + parseInt(initialTime.current.split(':')[1])
     let cur = minutes * 60 + seconds
     progressRef.current = ((cur - start) * 100) / (0 - start)
-    console.log(progressRef.current)
+    
     if (total >= 0) {
       setTimer(
         (minutes > 9 ? minutes : '0' + minutes) + ':'
