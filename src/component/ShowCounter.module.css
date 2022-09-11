@@ -8,6 +8,10 @@
 .fadingIn {
     animation: fadeIn 0.5s ease-out forwards;
 }
+.customProgressBar {
+    background-color: rgb(69, 79, 223);
+    height: 10px;
+}
 
 @keyframes fadeOut {
     0% {

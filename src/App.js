@@ -8,8 +8,8 @@ import classes from './App.module.css'
 
 function App() {
   const [isAddNew, setIsAddNew] = useState(false)
-  const { isStop, onClickReset, timer, resumeTimer, stopTimer, chooseTime } = useCountdown()
-  const [timeLength, setTimeLength] = useState('00:00')
+  const { isStop, onClickReset, timer, resumeTimer, stopTimer, chooseTime, progressRef } = useCountdown()
+  const [timeLength, setTimeLength] = useState('05:00')
 
   const handleTimeLength = useCallback((val => {
     setTimeLength(val)
@@ -25,14 +25,13 @@ function App() {
     second = parseInt(second)
     chooseTime(minute, second)
     setIsAddNew(false)
-
   }
 
   return (
     <div className={classes.App}>
-      <h1 className={classes.header}>Count Down Timer</h1>
+      <h1 className={classes.header}>Count Down</h1>
       <div className={classes.timerwrap}>
-        <ShowCounter minutes={timer.split(':')[0]} seconds={timer.split(':')[1]} />
+        <ShowCounter minutes={timer.split(':')[0]} seconds={timer.split(':')[1]} progress={progressRef.current} />
 
         <div className={classes.actionWrap}>
           {

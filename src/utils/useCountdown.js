@@ -1,7 +1,9 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const useCountdown = () => {
   const runningTimeRef = useRef(null);
+  const progressRef = useRef(0)
+  const initialTime = useRef('05:00')
 
   const [timer, setTimer] = useState('05:00');
   const [isStop, setIsStop] = useState(false)
@@ -17,8 +19,11 @@ const useCountdown = () => {
   }
 
   const startTimer = (e) => {
-    let { total, minutes, seconds }
-      = getTimeRemaining(e);
+    let { total, minutes, seconds } = getTimeRemaining(e);
+    let start = parseInt(initialTime.current.split(':')[0]) * 60 + parseInt(initialTime.current.split(':')[1])
+    let cur = minutes * 60 + seconds
+    progressRef.current = ((cur - start) * 100) / (0 - start)
+    console.log(progressRef.current)
     if (total >= 0) {
       setTimer(
         (minutes > 9 ? minutes : '0' + minutes) + ':'
@@ -27,14 +32,15 @@ const useCountdown = () => {
     }
   }
 
-  const clearTimer = useCallback((e) => {
+  const clearTimer = (e) => {
 
     if (runningTimeRef.current) clearInterval(runningTimeRef.current);
+    if (runningTimeRef.current && isStop) clearInterval(runningTimeRef.current)
     const interval = setInterval(() => {
       startTimer(e);
     }, 1000)
     runningTimeRef.current = interval;
-  }, [runningTimeRef])
+  }
 
   const getDeadTime = () => {
     let deadline = new Date();
@@ -52,10 +58,14 @@ const useCountdown = () => {
       setIsStop(true)
     }
   }, [timer])
+
   const onClickReset = () => {
-    setTimer("5:00")
+    setTimer("05:00")
+    initialTime.current = "05:00"
+
     clearTimer(getDeadTime());
     setIsStop(false)
+    progressRef.current = 0
   }
 
   const stopTimer = () => {
@@ -63,23 +73,33 @@ const useCountdown = () => {
     clearInterval(runningTimeRef.current)
   }
 
-  const resumeTimer = () => {
-    setIsStop(false)
-    let [minutes, seconds] = timer.split(":")
-
-    let total = minutes * 60 + parseInt(seconds)
+  const calculateResumeTime = (min, sec) => {
+    let total = min * 60 + parseInt(sec)
     let deadline = new Date();
     deadline.setSeconds(deadline.getSeconds() + total);
     clearTimer(deadline)
   }
 
-  const chooseTime = (min, sec) => {
-    setTimer(
-      (min > 9 ? min : '0' + min) + ':'
-      + (sec > 9 ? sec : '0' + sec)
-      )
-    
+  const resumeTimer = () => {
+    setIsStop(false)
+    let [minutes, seconds] = timer.split(":")
+
+    calculateResumeTime(minutes, seconds)
   }
+  
+
+  const chooseTime = (min, sec) => {
+    let selectTime = (min > 9 ? min : '0' + min) + ':'
+    + (sec > 9 ? sec : '0' + sec)
+    setTimer(selectTime)
+    initialTime.current = selectTime
+    progressRef.current = 0
+
+    calculateResumeTime(min, sec)
+    setIsStop(false)
+
+  }
+
 
   return {
     resumeTimer,
@@ -87,7 +107,8 @@ const useCountdown = () => {
     stopTimer,
     isStop,
     timer,
-    chooseTime
+    chooseTime,
+    progressRef
   }
 
 };

@@ -1,22 +1,23 @@
-import { useEffect } from "react"
-import { useState } from "react"
-import classes from './ShowCounter.module.css'
+// import { useRef } from "react";
+import { useEffect, useState } from "react"
+// import ProgressBar from 'react-bootstrap/ProgressBar';
 import { Transition } from "react-transition-group"
+import classes from './ShowCounter.module.css'
 
-export default function ShowCounter({ minutes, seconds }) {
+
+export default function ShowCounter({ minutes, seconds, progress }) {
 
     const mFirstDigit = minutes.split('')[0]
     const mSecondDigit = minutes.split('')[1]
     const sFirstDigit = seconds.split('')[0]
     const sSecondDigit = seconds.split('')[1]
 
-
-
     const [showMFirstDigit, setShowMFirstDigit] = useState(true)
     const [showMSecondDigit, setShowMSecondDigit] = useState(true)
-
     const [showSFirstDigit, setShowSFirstDigit] = useState(true)
     const [showSSecondDigit, setShowSSecondDigit] = useState(true)
+
+    
 
     // Minute Class Transition
     useEffect(() => {
@@ -49,18 +50,19 @@ export default function ShowCounter({ minutes, seconds }) {
 
     const animatingTiming = {
         enter: 500,
-        exit:500,
+        exit: 500,
     }
 
 
     return (
         <>
             <div className="d-flex justify-content-center">
+                
                 <Transition in={showMFirstDigit} timeout={animatingTiming}>
                     {
                         state => (
                             <div
-                            className={state === 'exited' ? classes.fadingIn : classes.fading}
+                                className={state === 'exited' ? classes.fadingIn : classes.fading}
                             >
                                 <h1 >
                                     {mFirstDigit}
@@ -69,12 +71,12 @@ export default function ShowCounter({ minutes, seconds }) {
                         )
                     }
                 </Transition>
-                
+
                 <Transition in={showMSecondDigit} timeout={animatingTiming}>
                     {
                         state => (
                             <div
-                            className={state === 'exited' ? classes.fadingIn : classes.fading}
+                                className={state === 'exited' ? classes.fadingIn : classes.fading}
                             >
                                 <h1 >
                                     {mSecondDigit}
@@ -117,6 +119,15 @@ export default function ShowCounter({ minutes, seconds }) {
                     }
 
                 </Transition>
+
+            </div>
+            <div
+                style={{
+                    width: `${progress}%`
+                }}
+                className={`mt-4 ${classes.customProgressBar}`} >
+
+
             </div>
 
 

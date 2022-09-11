@@ -12,7 +12,7 @@
 .header {
     text-align: center;
     font-size: 42px;
-    font-weight: 600;
+    font-weight: 500;
     margin-bottom: 30px;
 }
 
@@ -59,6 +59,7 @@
 .modal_wrap {
     background: #212121 !important;
 }
+
 
 @media only screen and (max-width: 992px) {
     .timerwrap {
